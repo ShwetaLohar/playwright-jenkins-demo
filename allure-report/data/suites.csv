@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Dec 03 10:27:02 IST 2024","Tue Dec 03 10:27:03 IST 2024","662","chromium","example.spec.ts","","","","Playwright Demo - get started link",""
+"passed","Tue Dec 03 10:27:02 IST 2024","Tue Dec 03 10:27:03 IST 2024","465","chromium","example.spec.ts","","","","Playwright Demo - has title",""
