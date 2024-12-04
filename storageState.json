@@ -1,0 +1,43 @@
+{
+  "cookies": [
+    {
+      "name": "refreshToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVTJGc2RHVmtYMS9mUTZIUG9rYU9qS0dGMDBTM3BwT1lxc2cvTUo5UCtGYUNGOVV3OXRpZkdXcENrMnN3ZUpzdWpSdk9DVzZQSEt1ZUdLMEVhZ0JFVmNPekVKTUdJYnJIekpnT2RYTVErQ3Rway9TK21VOVVzL0J5aEtIL0JXMDRwL3V3MDYwczdCMGt4VW0yeUpmYzBNZnpRR0dyeDYrdkhmblZBMDFocXpacUZ5dm8wUHpFQS9MeVBQK294YWIyUFIxY1BPSngvejNPVERqWHhQaEpGT21lRDI4dmVTbE5KSmtkcEp3OG03U1puS1VGZXJlN2Yyc01La0F5UXZpS3lrdXFvd1BKMzhyTks5cE0rU05IT3NMOWhEUXA0UCtjQ1NZM09LUmE4QUY5ZGFJK1oxZDdjUjJyekR6cHNNNk9samh2bVlqNklHOWdGYnBqS3RQM1RPVmdwakpibVJmSlNyV3U4ckp1ckpYK1lxN0plT3FwVjJOaUI1MXVtZm56cStUMWtWbkZXK0lId0JNcVVNVHUwSysxWEFJdWxNVG43YzdWWUZEaU5pbkVJRXNXNWtqQWtuaEFYKzY4eW12ZCIsImlhdCI6MTczMzI5NjY1NSwiZXhwIjoxNzMzOTAxNDU1fQ.vfnnl7B02FMG9EyRvIdC_1-G7bf1BSpvZWZdlDcD0sA",
+      "domain": "sbmuat.timepayonline.com",
+      "path": "/",
+      "expires": 1733901457.462421,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "accessToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVTJGc2RHVmtYMS9mUTZIUG9rYU9qS0dGMDBTM3BwT1lxc2cvTUo5UCtGYUNGOVV3OXRpZkdXcENrMnN3ZUpzdWpSdk9DVzZQSEt1ZUdLMEVhZ0JFVmNPekVKTUdJYnJIekpnT2RYTVErQ3Rway9TK21VOVVzL0J5aEtIL0JXMDRwL3V3MDYwczdCMGt4VW0yeUpmYzBNZnpRR0dyeDYrdkhmblZBMDFocXpacUZ5dm8wUHpFQS9MeVBQK294YWIyUFIxY1BPSngvejNPVERqWHhQaEpGT21lRDI4dmVTbE5KSmtkcEp3OG03U1puS1VGZXJlN2Yyc01La0F5UXZpS3lrdXFvd1BKMzhyTks5cE0rU05IT3NMOWhEUXA0UCtjQ1NZM09LUmE4QUY5ZGFJK1oxZDdjUjJyekR6cHNNNk9samh2bVlqNklHOWdGYnBqS3RQM1RPVmdwakpibVJmSlNyV3U4ckp1ckpYK1lxN0plT3FwVjJOaUI1MXVtZm56cStUMWtWbkZXK0lId0JNcVVNVHUwSysxWEFJdWxNVG43YzdWWUZEaU5pbkVJRXNXNWtqQWtuaEFYKzY4eW12ZCIsImlhdCI6MTczMzI5NjY1NSwiZXhwIjoxNzMzMjk3MDc1fQ.8NpgOmi65VWQET1KUde1cnTQvKkthVQh52Y_G-n6NDU",
+      "domain": "sbmuat.timepayonline.com",
+      "path": "/",
+      "expires": 1733901457.46257,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://sbmuat.timepayonline.com:31749",
+      "localStorage": [
+        {
+          "name": "UserData",
+          "value": "{\"customerName\":\"Sidharth Tiwari\",\"mobileNo\":\"9022346125\",\"userId\":\"1b8c72ad-fa64-47d3-8df7-09652e304e3c\",\"merchantId\":\"85b6a6b9-92a0-4bd1-bb46-f5c9e1a5886b\",\"userType\":\"bank_admin\"}"
+        },
+        {
+          "name": "merchantId",
+          "value": "\"85b6a6b9-92a0-4bd1-bb46-f5c9e1a5886b\""
+        },
+        {
+          "name": "token",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVTJGc2RHVmtYMS9mUTZIUG9rYU9qS0dGMDBTM3BwT1lxc2cvTUo5UCtGYUNGOVV3OXRpZkdXcENrMnN3ZUpzdWpSdk9DVzZQSEt1ZUdLMEVhZ0JFVmNPekVKTUdJYnJIekpnT2RYTVErQ3Rway9TK21VOVVzL0J5aEtIL0JXMDRwL3V3MDYwczdCMGt4VW0yeUpmYzBNZnpRR0dyeDYrdkhmblZBMDFocXpacUZ5dm8wUHpFQS9MeVBQK294YWIyUFIxY1BPSngvejNPVERqWHhQaEpGT21lRDI4dmVTbE5KSmtkcEp3OG03U1puS1VGZXJlN2Yyc01La0F5UXZpS3lrdXFvd1BKMzhyTks5cE0rU05IT3NMOWhEUXA0UCtjQ1NZM09LUmE4QUY5ZGFJK1oxZDdjUjJyekR6cHNNNk9samh2bVlqNklHOWdGYnBqS3RQM1RPVmdwakpibVJmSlNyV3U4ckp1ckpYK1lxN0plT3FwVjJOaUI1MXVtZm56cStUMWtWbkZXK0lId0JNcVVNVHUwSysxWEFJdWxNVG43YzdWWUZEaU5pbkVJRXNXNWtqQWtuaEFYKzY4eW12ZCIsImlhdCI6MTczMzI5NjY1NSwiZXhwIjoxNzMzMjk3MDc1fQ.8NpgOmi65VWQET1KUde1cnTQvKkthVQh52Y_G-n6NDU"
+        }
+      ]
+    }
+  ]
+}
