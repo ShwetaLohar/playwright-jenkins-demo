@@ -10,8 +10,6 @@ class MainPage {
         this.context = null;
         this.page = null;
         this.login = null;
-      
-        
     }
 
     async initialize() {

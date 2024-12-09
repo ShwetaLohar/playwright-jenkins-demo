@@ -48,7 +48,7 @@ class loginPage {
         expect(initialType).toBe('password');
         
         // Click the eye icon to reveal password
-        await this.page.locator('//em[@class="bi bi-eye-slash ng-star-inserted"]').click(); // replace '.eye-icon' with the actual selector for the eye icon
+        await this.page.locator('//em[@class="bi bi-eye-slash"]').click(); // replace '.eye-icon' with the actual selector for the eye icon
     
         // Verify the password is displayed in a readable format
         const updatedType = await passwordField.getAttribute('type');
@@ -77,34 +77,6 @@ class loginPage {
             }
         }
     }
-
-    // async gotoLoginPage() {
-    //     await this.page.context().clearCookies();
-
-    //     for (let attempt = 0; attempt < 3; attempt++) {
-    //         try {
-    //             console.log(`Attempt ${attempt + 1}...`);
-    //             const response = await this.page.goto('https://sbmuat.timepayonline.com:31749/login', { waitUntil: 'domcontentloaded' });
-    //             // const response = await this.page.goto('https://sbmuat.timepayonline.com:31749/login', { waitUntil: 'load', timeout: 30000 });
-    
-    //             if (!response || response.status() >= 400) {
-    //                 throw new Error(`Failed to load page, status code: ${response ? response.status() : 'Unknown'}`);
-    //             }
-    
-    //             // await this.page.waitForSelector('(//div[@c/lass="ugf-content"])[1]', { state: 'visible' });
-    
-    //             console.log('All required elements are loaded. Proceeding with further steps.');
-    //             break; // Exit loop if successful
-    
-    //         } catch (error) {
-    //             console.log(`Attempt ${attempt + 1} failed:`, error.message);
-    //             if (attempt === 2) {
-    //                 console.error('All attempts failed, throwing error.');
-    //                 throw error; 
-    //             }
-    //         }
-    //     }
-    // }
     
     async login(username, password) {
     
