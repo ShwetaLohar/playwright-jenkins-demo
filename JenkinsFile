@@ -57,8 +57,8 @@ pipeline {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
                     reportDir: 'playwright-report', 
-                    reportFiles: '**/*.html',  // Ensure all HTML files are included
-                  //   reportFiles: 'index.html',     
+                  //   reportFiles: '**/*.html',  // Ensure all HTML files are included
+                    reportFiles: 'index.html',     
                     keepAll: true,
                     allowMissing: false,
                     alwaysLinkToLastBuild: true
@@ -78,6 +78,12 @@ pipeline {
       //           ])
       //       }
       //   }
+    }
+
+     post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+        }
     }
 }
 
