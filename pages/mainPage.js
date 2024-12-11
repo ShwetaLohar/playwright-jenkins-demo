@@ -20,7 +20,7 @@ class MainPage {
         this.browser = await chromium.launchPersistentContext('',{
             headless: false, 
             ignoreHTTPSErrors: true,
-            channel: 'chrome',
+            // channel: 'chrome',
             recordVideo: { 
                 dir: 'myVideos/',
                 fullPage: true,
