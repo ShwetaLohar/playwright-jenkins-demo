@@ -49,6 +49,7 @@ pipeline {
         steps {
             sh '''
             npx playwright test --list
+            npx playwright install chrome
             npx playwright test "tests/login.spec.ts" --project=chromium
             '''
         }
