@@ -51,26 +51,53 @@ pipeline {
             '''
         }
       }
-      
-      stage('Publish Report') {
+
+       stage('Publish Playwright Report') {
             steps {
-                publishHTML(target: [
-                    reportName: 'Playwright Test Report',
-                    reportDir: 'playwright-report', 
-                    reportFiles: 'index.html',     
-                    keepAll: true,
+                publishHTML([
                     allowMissing: false,
-                    alwaysLinkToLastBuild: true
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright Test Report'
                 ])
             }
-      }
+        }
+    }
 
-      stage('Archive Artifacts') {
-         post {
-               always {
-                  archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-               }
-         }
-      }
-   }
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+        }
+    }
 }
+      
+   //    stage('Publish Report') {
+   //          steps {
+   //              publishHTML(target: [
+   //                  reportName: 'Playwright Test Report',
+   //                  reportDir: 'playwright-report', 
+   //                  reportFiles: 'index.html',     
+   //                  keepAll: true,
+   //                  allowMissing: false,
+   //                  alwaysLinkToLastBuild: true
+   //              ])
+   //          }
+   //    }
+
+   //    post {
+   //      always {
+   //          archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
+   //      }
+   //    }
+   // }
+
+   //    // stage('Archive Artifacts') {
+   //    //    post {
+   //    //          always {
+   //    //             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+   //    //          }
+   //    //    }
+   //    // }
+   // }
