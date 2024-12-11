@@ -47,8 +47,8 @@ pipeline {
       stage('test'){
         steps {
             sh '''
-            npx playwright test --list
-            npx playwright test "tests/login.spec.ts"
+            xvfb-run npx playwright test --list
+            xvfb-run npx playwright test "tests/login.spec.ts"
             '''
         }
       }
