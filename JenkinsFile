@@ -34,7 +34,6 @@ pipeline {
          steps {
             sh '''
             npm i -D @playwright/test
-            npx playwright install
             '''
          }
       }
@@ -49,7 +48,7 @@ pipeline {
         steps {
             sh '''
             npx playwright test --list
-            npx playwright test "tests/login.spec.ts" --project=firefox
+            npx playwright test "tests/login.spec.ts"
             '''
         }
       }
