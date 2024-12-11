@@ -13,7 +13,7 @@ test.describe.serial('Login Functionality', () => {
   });
 
   test.afterAll(async () => {
-      await mainPage.renameVideo('Login'); 
+      await mainPage.renameVideo('Login');
       await mainPage.closeBrowser();
   });
 
