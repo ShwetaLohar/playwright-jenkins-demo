@@ -52,39 +52,41 @@ pipeline {
         }
       }
 
-       stage('Publish Playwright Report') {
+      stage('Publish Report') {
             steps {
-                publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
+                publishHTML(target: [
+                    reportName: 'Playwright Test Report',
+                    reportDir: 'playwright-report', 
+                    reportFiles: 'index.html',     
                     keepAll: true,
-                    reportDir: 'playwright-report',
-                    reportFiles: 'index.html',
-                    reportName: 'Playwright Test Report'
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true
                 ])
             }
-        }
+      }
+
+      //  stage('Publish Playwright Report') {
+      //       steps {
+      //           publishHTML([
+      //               allowMissing: false,
+      //               alwaysLinkToLastBuild: true,
+      //               keepAll: true,
+      //               reportDir: 'playwright-report',
+      //               reportFiles: 'index.html',
+      //               reportName: 'Playwright Test Report'
+      //           ])
+      //       }
+      //   }
     }
 
-    post {
-        always {
-            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-        }
-    }
-}
+//     post {
+//         always {
+//             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+//         }
+//     }
+// }
       
-   //    stage('Publish Report') {
-   //          steps {
-   //              publishHTML(target: [
-   //                  reportName: 'Playwright Test Report',
-   //                  reportDir: 'playwright-report', 
-   //                  reportFiles: 'index.html',     
-   //                  keepAll: true,
-   //                  allowMissing: false,
-   //                  alwaysLinkToLastBuild: true
-   //              ])
-   //          }
-   //    }
+      
 
    //    post {
    //      always {
