@@ -34,7 +34,7 @@ pipeline {
          steps {
             sh '''
             npm i -D @playwright/test
-            npx playwright intall
+            npx playwright install
             '''
          }
       }

@@ -77,9 +77,7 @@ class loginPage {
             }
         }
     }
-
-    // 
-    
+ 
     async login(username, password) {
     
         if (username) {
