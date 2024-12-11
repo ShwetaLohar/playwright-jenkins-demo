@@ -49,7 +49,7 @@ pipeline {
         steps {
             sh '''
             npx playwright test --list
-            npx playwright test "tests/login.spec.ts" --project=chromium
+            npx playwright test "tests/login.spec.ts"
             '''
         }
       }
