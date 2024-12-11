@@ -21,11 +21,9 @@ for (const specFile of specFiles) {
   test.describe(`Running tests from ${specFile}`, () => {
 
     test.beforeAll(async () => {
-      
     });
 
     test.afterAll(async () => {
-
     });
 
     require(specFile);

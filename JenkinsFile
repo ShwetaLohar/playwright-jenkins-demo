@@ -1,0 +1,57 @@
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Test') {
+//             steps {
+//                 sh 'npx playwright test --reporter=html'
+//             }
+//         }
+//         stage('Publish Report') {
+//             steps {
+//                 publishHTML(target: [
+//                     reportName: 'Playwright Test Report',
+//                     reportDir: 'playwright-report', // Directory containing the report
+//                     reportFiles: 'index.html',     // Entry HTML file
+//                     keepAll: true,
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true
+//                 ])
+//             }
+//         }
+//     }
+// }
+
+
+pipeline {
+   agent { 
+    docker { 
+      image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+      }
+    }
+        
+   stages {
+      stage('install playwright') {
+         steps {
+            sh '''
+            npm i -D @playwright/test
+            npx playwright intall
+            '''
+         }
+      }
+
+      stage('help') {
+         steps {
+            sh 'npx playwright test --help'
+         }
+      }
+      
+      stage('test'){
+        steps {
+            sh '''
+            npx playwright test --list
+            npx playwright test "tests/login.spec.ts" --project=chromium
+            '''
+        }
+      }
+   }
+}
