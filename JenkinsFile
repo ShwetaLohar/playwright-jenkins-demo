@@ -49,8 +49,7 @@ pipeline {
         steps {
             sh '''
             npx playwright test --list
-            npx playwright install chromium
-            npx playwright test "tests/login.spec.ts"
+            npx playwright test "tests/login.spec.ts" --project=firefox
             '''
         }
       }

@@ -1,4 +1,4 @@
-const { chromium, } = require("@playwright/test");
+const { chromium, firefox, } = require("@playwright/test");
 const fs = require('fs');
 const path = require('path');
 const loginPage = require('./loginPage');
@@ -11,16 +11,16 @@ class MainPage {
         this.page = null;
         this.login = null;
     }
-    
+
     async initialize() {
 
         const storageStateFilePath = 'storageState.json';
         const isStorageStateFileExists = fs.existsSync(storageStateFilePath);
 
-        this.browser = await chromium.launchPersistentContext('',{
+        this.browser = await firefox.launchPersistentContext('',{
             headless: false, 
             ignoreHTTPSErrors: true,
-            channel: 'chrome',
+            channel: 'firefox',
             recordVideo: { 
                 dir: 'myVideos/',
                 fullPage: true,
