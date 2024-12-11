@@ -21,6 +21,7 @@ class MainPage {
             headless: false, 
             ignoreHTTPSErrors: true,
             channel: 'chrome',
+            executablePath: '/usr/bin/google-chrome',
             recordVideo: { 
                 dir: 'myVideos/',
                 fullPage: true,
