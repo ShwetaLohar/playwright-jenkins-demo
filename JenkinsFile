@@ -21,7 +21,6 @@
 //     }
 // }
 
-
 pipeline {
    agent { 
     docker { 
@@ -51,6 +50,19 @@ pipeline {
             xvfb-run npx playwright test "tests/login.spec.ts"
             '''
         }
+      }
+      
+      stage('Publish Report') {
+            steps {
+                publishHTML(target: [
+                    reportName: 'Playwright Test Report',
+                    reportDir: 'playwright-report', // Directory containing the report
+                    reportFiles: 'index.html',     // Entry HTML file
+                    keepAll: true,
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true
+                ])
+            }
       }
    }
 }
