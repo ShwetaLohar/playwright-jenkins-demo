@@ -56,13 +56,21 @@ pipeline {
             steps {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
-                    reportDir: 'playwright-report', // Directory containing the report
-                    reportFiles: 'index.html',     // Entry HTML file
+                    reportDir: 'playwright-report', 
+                    reportFiles: 'index.html',     
                     keepAll: true,
                     allowMissing: false,
                     alwaysLinkToLastBuild: true
                 ])
             }
+      }
+
+      stage('Archive Artifacts') {
+         post {
+               always {
+                  archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+               }
+         }
       }
    }
 }
