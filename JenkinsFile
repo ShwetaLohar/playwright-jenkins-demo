@@ -227,7 +227,8 @@
 pipeline {
     agent {
         docker { 
-            image 'playwright-with-ffmpeg'
+            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+            // image 'playwright-with-ffmpeg'
             args '-e TZ=Asia/Kolkata'
         }
     }
