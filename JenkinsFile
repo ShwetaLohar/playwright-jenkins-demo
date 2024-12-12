@@ -21,38 +21,98 @@
 //     }
 // }
 
+// pipeline {
+//    agent { 
+//     docker { 
+//       image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+//       }
+//     }
+        
+//    stages {
+//       stage('install playwright') {
+//          steps {
+//             sh '''
+//             npm i -D @playwright/test
+//             '''
+//          }
+//       }
+
+//       stage('help') {
+//          steps {
+//             sh 'npx playwright test --help'
+//          }
+//       }
+      
+//       stage('test'){
+//         steps {
+//             sh '''
+//             xvfb-run npx playwright test --list
+//             xvfb-run npx playwright test "tests/login.spec.ts --reporter=html"
+//             '''
+//         }
+//       }
+
+//       stage('Publish Report') {
+//             steps {
+//                 publishHTML(target: [
+//                     reportName: 'Playwright Test Report',
+//                     reportDir: 'playwright-report', 
+//                     reportFiles: 'index.html',     
+//                     keepAll: true,
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true
+//                 ])
+//             }
+//       }
+
+//     stage('Archive Test Videos') {
+//       steps {
+//             archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
+//       }
+//    }
+// }
+
+//    post {
+//       always {
+//          archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+//       }
+//    }
+// }
+
+
+
 pipeline {
-   agent { 
-    docker { 
-      image 'mcr.microsoft.com/playwright:v1.49.1-noble'
-      }
+    agent { 
+        docker { 
+            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+        }
     }
         
-   stages {
-      stage('install playwright') {
-         steps {
-            sh '''
-            npm i -D @playwright/test
-            '''
-         }
-      }
-
-      stage('help') {
-         steps {
-            sh 'npx playwright test --help'
-         }
-      }
-      
-      stage('test'){
-        steps {
-            sh '''
-            xvfb-run npx playwright test --list
-            xvfb-run npx playwright test "tests/login.spec.ts --reporter=html"
-            '''
+    stages {
+        stage('Install Playwright') {
+            steps {
+                sh '''
+                npm i -D @playwright/test
+                '''
+            }
         }
-      }
 
-      stage('Publish Report') {
+        stage('Help') {
+            steps {
+                sh 'npx playwright test --help'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh '''
+                xvfb-run npx playwright test --list
+                xvfb-run npx playwright test "tests/login.spec.ts" --reporter=html
+                '''
+            }
+        }
+
+        stage('Publish Report') {
             steps {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
@@ -63,19 +123,20 @@ pipeline {
                     alwaysLinkToLastBuild: true
                 ])
             }
-      }
+        }
 
-    stage('Archive Test Videos') {
-      steps {
-            archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
-      }
-   }
+        stage('Archive Test Videos') {
+            steps {
+                archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+        }
+    }
 }
-
-   post {
-      always {
-         archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-      }
-   }
 
 
