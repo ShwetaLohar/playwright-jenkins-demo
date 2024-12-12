@@ -47,7 +47,7 @@ pipeline {
         steps {
             sh '''
             xvfb-run npx playwright test --list
-            xvfb-run npx playwright test "tests/login.spec.ts"
+            xvfb-run npx playwright test "tests/login.spec.ts --reporter=html"
             '''
         }
       }
@@ -63,12 +63,6 @@ pipeline {
                     alwaysLinkToLastBuild: true
                 ])
             }
-      }
-
-      stage('Check Report Generation') {
-         steps {
-            sh 'ls -alh playwright-report'
-         }
       }
     }
 
