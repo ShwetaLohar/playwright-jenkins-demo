@@ -89,11 +89,18 @@ pipeline {
     }
         
     stages {
+      
         stage('Install Playwright') {
             steps {
                 sh '''
                 npm i -D @playwright/test
                 '''
+            }
+        }
+
+        stage('Clean Old Videos') {
+            steps {
+                sh 'rm -rf myVideos/*' // Clean up old videos before running new tests
             }
         }
 
