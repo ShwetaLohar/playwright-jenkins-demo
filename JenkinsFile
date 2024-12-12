@@ -81,72 +81,151 @@
 
 
 
+// pipeline {
+//     agent { 
+//         docker { 
+//             image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+//             args '-e TZ=Asia/Kolkata'
+//         }
+//     }
+        
+//     stages {
+
+//        stage('Cleanup Old Videos') {
+//             steps {
+//                 sh 'rm -rf myVideos/*'
+//             }
+//         }
+
+//         stage('Install Playwright') {
+//             steps {
+//                 sh '''
+//                 npm i -D @playwright/test
+//                 '''
+//             }
+//         }
+
+//         stage('Help') {
+//             steps {
+//                 sh 'npx playwright test --help'
+//             }
+//         }
+        
+//         stage('Test') {
+//             steps {
+//                 sh '''
+//                 xvfb-run npx playwright test --list
+//                 xvfb-run npx playwright test "tests/login.spec.ts" --reporter=html
+//                 '''
+//             }
+//         }
+
+//         stage('Archive Test Videos') {
+//             steps {
+//                 archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
+//             }
+//         }
+
+//         stage('Publish Report') {
+//             steps {
+//                 publishHTML(target: [
+//                     reportName: 'Playwright Test Report',
+//                     reportDir: 'playwright-report', 
+//                     reportFiles: 'index.html',     
+//                     keepAll: true,
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true
+//                 ])
+//             }
+//         }
+//     }
+
+//     post {  
+//         always {
+//             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+//         }
+//     }
+// }
+
+
+
+
+
+
 pipeline {
-    agent { 
-        docker { 
-            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
-            args '-e TZ=Asia/Kolkata'
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.49.1-focal'
         }
     }
-        
+
+    environment {
+        VIDEO_DIR = 'myVideos/'
+    }
+
     stages {
-
-       stage('Cleanup Old Videos') {
+        stage('Install Dependencies') {
             steps {
-                sh 'rm -rf myVideos/*'
+                sh 'npm install'
             }
         }
 
-        stage('Install Playwright') {
+        stage('Run Playwright Tests') {
             steps {
-                sh '''
-                npm i -D @playwright/test
-                '''
+                script {
+                    // Ensure video directory exists and is clean before running tests
+                    sh "rm -rf ${VIDEO_DIR} && mkdir -p ${VIDEO_DIR}"
+
+                    // Run Playwright tests and generate videos
+                    sh "xvfb-run --auto-servernum npx playwright test --reporter=html"
+                }
             }
         }
 
-        stage('Help') {
+        stage('Verify Videos') {
             steps {
-                sh 'npx playwright test --help'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                sh '''
-                xvfb-run npx playwright test --list
-                xvfb-run npx playwright test "tests/login.spec.ts" --reporter=html
-                '''
+                script {
+                    // List generated video files
+                    sh "ls -l ${VIDEO_DIR}"
+
+                    // Optional: Use ffmpeg to verify and re-encode if necessary
+                    sh '''
+                    for video in ${VIDEO_DIR}*.webm; do
+                        if [ -f "$video" ]; then
+                            ffmpeg -i "$video" -c:v libvpx -crf 10 -b:v 1M "$video.fixed.webm"
+                            mv "$video.fixed.webm" "$video"
+                        fi
+                    done
+                    '''
+                }
             }
         }
 
-        stage('Archive Test Videos') {
-            steps {
-                archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
-            }
-        }
-
-        stage('Publish Report') {
+        stage('Publish Test Report') {
             steps {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
-                    reportDir: 'playwright-report', 
-                    reportFiles: 'index.html',     
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
                     keepAll: true,
                     allowMissing: false,
                     alwaysLinkToLastBuild: true
                 ])
             }
         }
+
+        stage('Archive Test Videos') {
+            steps {
+                archiveArtifacts artifacts: "${VIDEO_DIR}*.webm", fingerprint: true
+            }
+        }
     }
 
     post {
         always {
+            // Ensure videos and reports are archived even if the build fails
             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+            archiveArtifacts artifacts: "${VIDEO_DIR}*.webm", fingerprint: true
         }
     }
 }
-
-
-
-
