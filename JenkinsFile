@@ -64,7 +64,6 @@ pipeline {
                 ])
             }
       }
-    }
 
     stage('Archive Test Videos') {
       steps {
