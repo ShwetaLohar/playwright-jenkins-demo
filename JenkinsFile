@@ -81,97 +81,41 @@
 
 
 
-// pipeline {
-//     agent { 
-//         docker { 
-//             image 'mcr.microsoft.com/playwright:v1.49.1-noble'
-//             args '-e TZ=Asia/Kolkata'
-//         }
-//     }
-        
-//     stages {
-
-//         stage('Install Playwright') {
-//             steps {
-//                 sh '''
-//                 npm i -D @playwright/test
-//                 '''
-//             }
-//         }
-
-//         stage('Clean Old Videos') {
-//             steps {
-//                 sh 'rm -rf myVideos/*' // Clean up old videos before running new tests
-//             }
-//         }
-
-//         stage('Help') {
-//             steps {
-//                 sh 'npx playwright test --help'
-//             }
-//         }
-        
-//         stage('Test') {
-//             steps {
-//                 sh '''
-//                 xvfb-run npx playwright test --list
-//                 xvfb-run npx playwright test "tests/login.spec.ts" --reporter=html
-//                 '''
-//             }
-//         }
-
-//         stage('Publish Report') {
-//             steps {
-//                 publishHTML(target: [
-//                     reportName: 'Playwright Test Report',
-//                     reportDir: 'playwright-report', 
-//                     reportFiles: 'index.html',     
-//                     keepAll: true,
-//                     allowMissing: false,
-//                     alwaysLinkToLastBuild: true
-//                 ])
-//             }
-//         }
-
-//         stage('Archive Test Videos') {
-//             steps {
-//                 archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
-//             }
-//         }
-//     }
-
-//     post {
-//         always {
-//             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-//         }
-//     }
-// }
-
-
 pipeline {
-    agent {
+    agent { 
         docker { 
-            image 'mcr.microsoft.com/playwright:v1.49.1-focal' 
+            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+            args '-e TZ=Asia/Kolkata'
         }
     }
-
+        
     stages {
-        stage('Cleanup Old Videos') {
+
+       stage('Cleanup Old Videos') {
             steps {
                 sh 'rm -rf myVideos/*'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Playwright') {
             steps {
-                sh 'npm install'
+                sh '''
+                npm i -D @playwright/test
+                '''
             }
         }
 
-        stage('Run Playwright Tests') {
+        stage('Help') {
+            steps {
+                sh 'npx playwright test --help'
+            }
+        }
+        
+        stage('Test') {
             steps {
                 sh '''
-                xvfb-run npx playwright test --reporter=html
+                xvfb-run npx playwright test --list
+                xvfb-run npx playwright test "tests/login.spec.ts" --reporter=html
                 '''
             }
         }
@@ -186,8 +130,10 @@ pipeline {
             steps {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
-                    reportDir: 'playwright-report',
-                    reportFiles: 'index.html',
+                    reportDir: 'playwright-report', 
+                    reportFiles: 'index.html',     
+                    keepAll: true,
+                    allowMissing: false,
                     alwaysLinkToLastBuild: true
                 ])
             }
@@ -200,5 +146,7 @@ pipeline {
         }
     }
 }
+
+
 
 
