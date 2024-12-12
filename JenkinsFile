@@ -253,22 +253,22 @@ pipeline {
             }
         }
 
-        stage('Verify Videos') {
-            steps {
-                script {
-                    sh "ls -l ${VIDEO_DIR}"
+      //   stage('Verify Videos') {
+      //       steps {
+      //           script {
+      //               sh "ls -l ${VIDEO_DIR}"
 
-                    sh '''
-                    for video in ${VIDEO_DIR}*.webm; do
-                        if [ -f "$video" ]; then
-                            ffmpeg -i "$video" -c:v libvpx -crf 10 -b:v 1M "$video.fixed.webm"
-                            mv "$video.fixed.webm" "$video"
-                        fi
-                    done
-                    '''
-                }
-            }
-        }
+      //               sh '''
+      //               for video in ${VIDEO_DIR}*.webm; do
+      //                   if [ -f "$video" ]; then
+      //                       ffmpeg -i "$video" -c:v libvpx -crf 10 -b:v 1M "$video.fixed.webm"
+      //                       mv "$video.fixed.webm" "$video"
+      //                   fi
+      //               done
+      //               '''
+      //           }
+      //       }
+      //   }
 
         stage('Publish Test Report') {
             steps {
