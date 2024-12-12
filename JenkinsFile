@@ -148,14 +148,86 @@
 // }
 
 
+// pipeline {
+//     agent {
+//         docker { 
+//             // image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+//             image 'playwright-with-ffmpeg'
+//             args '-e TZ=Asia/Kolkata'
+//         }
+//     }
 
+//     environment {
+//         VIDEO_DIR = 'myVideos/'
+//     }
 
+//     stages {
+//         stage('Install Dependencies') {
+//             steps {
+//                 sh 'npm install'
+//             }
+//         }
+
+//         stage('Run Playwright Tests') {
+//             steps {
+//                 script {
+//                     sh "rm -rf ${VIDEO_DIR} && mkdir -p ${VIDEO_DIR}"
+//                     sh "xvfb-run --auto-servernum npx playwright test --reporter=html"
+//                 }
+//             }
+//         }
+
+//         stage('Verify Videos') {
+//             steps {
+//                 script {
+//                     sh "ls -l ${VIDEO_DIR}"
+
+//                     sh '''
+//                     for video in ${VIDEO_DIR}*.webm; do
+//                         if [ -f "$video" ]; then
+//                             ffmpeg -i "$video" -c:v libvpx -crf 10 -b:v 1M "$video.fixed.webm"
+//                             mv "$video.fixed.webm" "$video"
+//                         fi
+//                     done
+//                     '''
+//                 }
+//             }
+//         }
+
+//         stage('Publish Test Report') {
+//             steps {
+//                 publishHTML(target: [
+//                     reportName: 'Playwright Test Report',
+//                     reportDir: 'playwright-report',
+//                     reportFiles: 'index.html',
+//                     keepAll: true,
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true
+//                 ])
+//             }
+//         }
+
+//         stage('Archive Test Videos') {
+//             steps {
+//                 archiveArtifacts artifacts: "${VIDEO_DIR}*.webm", fingerprint: true
+//             }
+//         }
+//     }
+
+//     post {
+//         always {
+//             // Ensure videos and reports are archived even if the build fails
+//             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+//             archiveArtifacts artifacts: "${VIDEO_DIR}*.webm", fingerprint: true
+//         }
+//     }
+// }
 
 
 pipeline {
     agent {
         docker { 
-            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+            image 'playwright-with-ffmpeg'
             args '-e TZ=Asia/Kolkata'
         }
     }
@@ -174,10 +246,7 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 script {
-                    // Ensure video directory exists and is clean before running tests
                     sh "rm -rf ${VIDEO_DIR} && mkdir -p ${VIDEO_DIR}"
-
-                    // Run Playwright tests and generate videos
                     sh "xvfb-run --auto-servernum npx playwright test --reporter=html"
                 }
             }
@@ -186,10 +255,8 @@ pipeline {
         stage('Verify Videos') {
             steps {
                 script {
-                    // List generated video files
                     sh "ls -l ${VIDEO_DIR}"
 
-                    // Optional: Use ffmpeg to verify and re-encode if necessary
                     sh '''
                     for video in ${VIDEO_DIR}*.webm; do
                         if [ -f "$video" ]; then
@@ -224,9 +291,9 @@ pipeline {
 
     post {
         always {
-            // Ensure videos and reports are archived even if the build fails
             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
             archiveArtifacts artifacts: "${VIDEO_DIR}*.webm", fingerprint: true
         }
     }
 }
+
