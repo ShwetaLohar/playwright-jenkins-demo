@@ -30,7 +30,7 @@ class MainPage {
                 quality: 'highest'
             },
 
-            storageState: isStorageStateFileExists ? storageStateFilePath : undefined // Load storage state if file exists
+            storageState: isStorageStateFileExists ? storageStateFilePath : undefined 
         });
 
         // this.context = await this.browser.pages();

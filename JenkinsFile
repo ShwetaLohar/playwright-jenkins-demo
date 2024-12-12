@@ -85,11 +85,12 @@ pipeline {
     agent { 
         docker { 
             image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+            args '-e TZ=Asia/Kolkata'
         }
     }
         
     stages {
-      
+
         stage('Install Playwright') {
             steps {
                 sh '''
