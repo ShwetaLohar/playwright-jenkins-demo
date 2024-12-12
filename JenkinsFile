@@ -66,10 +66,17 @@ pipeline {
       }
     }
 
-     post {
-        always {
-            archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-        }
-    }
+    stage('Archive Test Videos') {
+      steps {
+            archiveArtifacts artifacts: 'myVideos/**/*.webm', fingerprint: true
+      }
+   }
 }
+
+   post {
+      always {
+         archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
+      }
+   }
+
 

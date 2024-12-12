@@ -31,7 +31,6 @@ class MainPage {
             },
 
             storageState: isStorageStateFileExists ? storageStateFilePath : undefined // Load storage state if file exists
-
         });
 
         // this.context = await this.browser.pages();
