@@ -57,13 +57,18 @@ pipeline {
                 publishHTML(target: [
                     reportName: 'Playwright Test Report',
                     reportDir: 'playwright-report', 
-                    reportFiles: '**/*.html',  // Ensure all HTML files are included
-                  //   reportFiles: 'index.html',     
+                    reportFiles: 'index.html',     
                     keepAll: true,
                     allowMissing: false,
                     alwaysLinkToLastBuild: true
                 ])
             }
+      }
+
+      stage('Check Report Generation') {
+         steps {
+            sh 'ls -alh playwright-report'
+         }
       }
     }
 
