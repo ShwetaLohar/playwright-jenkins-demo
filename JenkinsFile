@@ -302,7 +302,7 @@
 pipeline {
     agent {
         docker { 
-            image 'shwetalohar/playwright-with-ffmpeg:latest'
+            image 'playwright-with-ffmpeg:latest'
             args '-e TZ=Asia/Kolkata'
         }
     }
